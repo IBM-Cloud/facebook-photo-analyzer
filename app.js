@@ -17,8 +17,7 @@ var express = require('express'),
   temp = require('temp')
   fs = require("fs"),
   path = require("path"),
-  os = require("os"),
-  Redis = require("redis");
+  os = require("os");
 
 temp.track();
 

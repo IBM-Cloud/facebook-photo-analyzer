@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/IBM-Bluemix/facebook-photo-sentiment.git"
+    "url": "https://github.com/IBM-Bluemix/facebook-photo-analyzer.git"
   },
   "dependencies": {
     "alchemy-api": "^1.3.1",
