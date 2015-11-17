@@ -2,7 +2,7 @@
 
 ## Deploy
 
-There are two menthods to deploy this app.  With both ways you will need to create a [Facebook developer app](https://developer.facebook.com) and signup for a [AlchemyAPI account](http://www.alchemyapi.com/developers/sdks).
+There are two menthods to deploy this app.  With both ways you will need to create a [Facebook developer app](https://developer.facebook.com) and signup for a [AlchemyAPI account](http://www.alchemyapi.com/api/register.html).
 
 ### Facebook setup
 
@@ -13,6 +13,7 @@ There are two menthods to deploy this app.  With both ways you will need to crea
 ### Quick and easy
 
 Click the following button
+
 [![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
 
 **You might get a screen asking you to create an alias on DevOps services.  If you do just use the part before the @ sign in your email address.  Example if your email is johnsmith@gmail.com your username would be johnsmith***
