@@ -25,6 +25,7 @@
     "cookie-parser": "*",
     "ejs": "*",
     "express": "4.9.x",
+    "express-force-ssl": "^0.3.0",
     "express-session": "*",
     "fbgraph": "^1.1.0",
     "method-override": "*",

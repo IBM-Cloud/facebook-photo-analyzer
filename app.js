@@ -78,12 +78,12 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-
 if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET !== undefined) {
+
   passport.use(new FacebookStrategy({
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "https://facebook-photo-analyzer.mybluemix.net/auth/facebook/callback",
+      callbackURL: appEnv.url + "/auth/facebook/callback",
       scope: ["user_photos", "user_posts"]
     },
     function(accessToken, refreshToken, profile, done) {
@@ -245,7 +245,7 @@ app.get('/', function (request, response) {
     user: request.user,
     setup: setup
   };
-  console.log(request.user);
+
   if (request.user) {
     db.view("photos", "user", { keys: [request.user.id]}, function (error, result) {
       opts.photos = result.rows;
