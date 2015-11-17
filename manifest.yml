@@ -6,6 +6,9 @@ declared-services:
   alchemy-api-photo-analyzer:
     label: alchemy_api
     plan: free
+  visual-recognition-photo-analyzer:
+    label: visual_recognition
+    plan: free
 applications:
 - name: facebook-photo-analyzer
   framework: node
