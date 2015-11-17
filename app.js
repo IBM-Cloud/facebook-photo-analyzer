@@ -76,38 +76,41 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:6020/auth/facebook/callback",
-    scope: ["user_photos", "user_posts"]
-  },
-  function(accessToken, refreshToken, profile, done) {
-    async.waterfall([
-      function  (next) {
-        graph.setAccessToken(accessToken);
-        graph.get("/me/photos", next);
-      },
-      function (photos, next) {
-        var params = { fields: "images" };
-        _.each(photos.data, function(photo) {
-          photo.graph = graph;
-        });
-        //async.each(photos.data, analyzePhoto, next);
-        analyzePhoto(photos.data[0], next);
-      }
-      ], function (error, result) {
-        if (error) {
-          console.log(error);
-          done(error);
+console.log(process.env.FACEBOOK_APP_ID);
+if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET !== undefined) {
+  passport.use(new FacebookStrategy({
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: "http://localhost:6020/auth/facebook/callback",
+      scope: ["user_photos", "user_posts"]
+    },
+    function(accessToken, refreshToken, profile, done) {
+      async.waterfall([
+        function  (next) {
+          graph.setAccessToken(accessToken);
+          graph.get("/me/photos", next);
+        },
+        function (photos, next) {
+          var params = { fields: "images" };
+          _.each(photos.data, function(photo) {
+            photo.graph = graph;
+          });
+          //async.each(photos.data, analyzePhoto, next);
+          analyzePhoto(photos.data[0], next);
         }
-        else {
-          done(null, {profile: profile, result: result});
+        ], function (error, result) {
+          if (error) {
+            console.log(error);
+            done(error);
+          }
+          else {
+            done(null, {profile: profile, result: result});
+          }
         }
-      }
-    );
-  }
-));
+      );
+    }
+  ));
+}
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 

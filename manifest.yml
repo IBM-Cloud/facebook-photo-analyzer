@@ -6,7 +6,7 @@ declared-services:
   cloudant-photo-analyzer:
     label: cloudantNoSQLDB
     plan: Shared
-  alchemy-api:
+  alchemy-api-photo-analyzer:
     label: alchemy_api
     plan: free
 applications:
