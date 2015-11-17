@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Personality Box</title>
+        <meta name="description" content="Analyze the sentiment of documents in your Box account using Watson Personality Insights">
+        <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="/css/personality.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="/images/favicon.ico">
+    </head>
+    <body>
+    <div class="full-screen-wrapper">
+        <div class="container-fluid">
+            <div class="content">
+                <% if (user) { %>
+                <div class="jumbotron">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5 column" id="search-col">
+                                <h2 id="nav-header">Facebook Photo Analyzer</h2>
+                            </div>
+                            <div class="col-lg-offset-2 col-md-offset-2 col-lg-5 col-md-5 col-sm-6 col-xs-5 column">
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2 column text-center" id="logout-link">
+                                <a href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            <div class="container" ng-controller="FilesController">

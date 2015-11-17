@@ -1,0 +1,24 @@
+---
+declared-services:
+  visual-recognition-photo-analyzer:
+    label: visual_recognition
+    plan: free
+  cloudant-photo-analyzer:
+    label: cloudantNoSQLDB
+    plan: Shared
+  alchemy-api:
+    label: alchemy_api
+    plan: free
+applications:
+- name: facebook-photo-analyzer
+  framework: node
+  runtime: node12
+  memory: 256M
+  instances: 1
+  host: facebook-photo-analyzer
+  path: .
+  command: node app.js
+  services:
+  - visual-recognition-photo-analyzer
+  - cloudant-photo-analyzer
+  - alchemy-api-photo-analyzer
