@@ -14,12 +14,10 @@ var express = require('express'),
   graph = require('fbgraph'),
   request = require('request'),
   AlchemyApi = require('alchemy-api'),
-  temp = require('temp')
   fs = require("fs"),
   path = require("path"),
-  os = require("os");
-
-temp.track();
+  os = require("os"),
+  Cloudant = require('cloudant');
 
 //---Deployment Tracker---------------------------------------------------------
 require("cf-deployment-tracker-client").track();
@@ -51,7 +49,12 @@ visualRecognitionCreds.version = "v1";
 delete visualRecognitionCreds.url;
 var visualRecognition = watson.visual_recognition(visualRecognitionCreds);
 
-var alchemy = new AlchemyApi(process.env.ALCHEMY_API_KEYS);
+var alchemy = new AlchemyApi(process.env.ALCHEMY_API_KEY);
+
+var cloudantCreds = getServiceCreds(appEnv, "cloudant-photo-analyzer"),
+  dbName = "photo-analyzer",
+  cloudant,
+  db;
 
 //---Routers and View Engine----------------------------------------------------
 app.set('views', __dirname + '/views');
@@ -93,9 +96,10 @@ if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET
           var params = { fields: "images" };
           _.each(photos.data, function(photo) {
             photo.graph = graph;
+            photo.userId = profile.id;
           });
-          //async.each(photos.data, analyzePhoto, next);
-          analyzePhoto(photos.data[0], next);
+          async.each(photos.data, analyzePhoto, next);
+          //analyzePhoto(photos.data[0], next);
         }
         ], function (error, result) {
           if (error) {
@@ -103,7 +107,7 @@ if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET
             done(error);
           }
           else {
-            done(null, {profile: profile, result: result});
+            done(null, profile);
           }
         }
       );
@@ -122,13 +126,52 @@ app.get('/auth/facebook/callback',
 
 app.listen(appEnv.port, function() {
   console.log("server started on port " + appEnv.port);
+  var dbCreated = false;
+  Cloudant({account:cloudantCreds.username, password:cloudantCreds.password}, function(er, dbInstance) {
+      cloudant = dbInstance;
+      if (er) {
+          return console.log('Error connecting to Cloudant account %s: %s', me, er.message);
+      }
+
+      console.log('Connected to cloudant');
+      cloudant.ping(function(er, reply) {
+          if (er) {
+              return console.log('Failed to ping Cloudant. Did the network just go down?');
+          }
+
+          console.log('Server version = %s', reply.version);
+          console.log('I am %s and my roles are %j', reply.userCtx.name, reply.userCtx.roles);
+
+          cloudant.db.list(function(er, all_dbs) {
+              if (er) {
+                  return console.log('Error listing databases: %s', er.message);
+              }
+
+              console.log('All my databases: %s', all_dbs.join(', '));
+
+              _.each(all_dbs, function(name) {
+                  if (name === dbName) {
+                      dbCreated = true;
+                  }
+              });
+              if (dbCreated === false) {
+                  cloudant.db.create(dbName, seedDB);
+              }
+              else {
+                  db = cloudant.db.use(dbName);
+                  console.log("DB", dbName, "is already created");
+              }
+          });
+      });
+  });
 });
 
 function analyzePhoto(photo, callback) {
   var graph = photo.graph,
     file = path.join(os.tmpdir(), photo.id + ".jpg"),
     response = {
-      id: photo.id
+      photoId: photo.id,
+      userId: photo.userId
     };
 
   async.waterfall([
@@ -175,8 +218,20 @@ function analyzePhoto(photo, callback) {
 
     },
     function (result, next) {
-      response.sentiment = result.docSentiment;
-      next(null, response);
+      if (result !== null) {
+        response.sentiment = result.docSentiment;
+      }
+
+      response.type = "photo";
+      db.view("photos", "photo", { keys: [response.photoId]}, next);
+    },
+    function (result, headers, next) {
+        if (result.rows.length === 0) {
+            db.insert(response, next);
+        }
+        else {
+          next(null, result);
+        }
     }
   ], callback);
 }
@@ -189,8 +244,18 @@ app.get('/', function (request, response) {
   var opts = {
     user: request.user,
     setup: setup
+  };
+  console.log(request.user);
+  if (request.user) {
+    db.view("photos", "user", { keys: [request.user.id]}, function (error, result) {
+      opts.photos = result.rows;
+      response.render('index', opts);
+    });
   }
-  response.render('index', opts);
+  else {
+    response.render('index', opts);
+  }
+
 });
 
 app.get('/logout', function (request, response) {
@@ -198,3 +263,33 @@ app.get('/logout', function (request, response) {
   response.redirect('/');
 });
 
+function seedDB(callback) {
+  db = cloudant.use(dbName);
+
+  async.waterfall([
+      function (next) {
+          var designDocs = [
+              {
+                  _id: '_design/photos',
+                  views: {
+                      all: {
+                          map: function (doc) { if (doc.type === 'photo') { emit(doc._id, doc); } }
+                      },
+                      user: {
+                          map: function (doc) { if (doc.type === 'photo') { emit(doc.userId, doc); } }
+                      },
+                      photo: {
+                          map: function (doc) { if (doc.type === 'photo') { emit(doc.photoId, doc); } }
+                      }
+                  }
+              }
+         ];
+
+          async.each(designDocs, db.insert, next);
+      },
+      function (next) {
+          console.log("Created DB", dbName, "and populated it with initial purchases");
+          next();
+      }
+  ], callback)
+}

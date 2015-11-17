@@ -43,20 +43,25 @@
     </div>
 </div>
 <% } else { %>
-<h2>Hello, <%= user.profile.displayName %>!</h2>
+<h2>Hello, <%= user.displayName %>!</h2>
 <hr />
 <h3>Below are some photos from your Facebook account</h3>
 <div>
+    <% for(var i=0; i<photos.length; i++) {%>
+    <% var photo = photos[i].value; %>
     <div class="row">
-        <img src="<%= user.result.source %>" />
-        <div>Comment Sentiment: <%= user.result.sentiment.type %></div>
+        <img src="<%= photo.source %>" />
+        <% if (photo.sentiment) { %>
+        <div>Comment Sentiment: <%= photo.sentiment.type %></div>
+        <% } %>
         <div>Items in Picture:</div>
         <ul>
-        <% for(var i=0; i<user.result.labels.length; i++) {%>
-           <li><%= user.result.labels[i].label_name %> - <%= user.result.labels[i].label_score %></li>
+        <% for(var k=0; k<photo.labels.length; k++) {%>
+           <li><%= photo.labels[k].label_name %> - <%= photo.labels[k].label_score %></li>
         <% } %>
         </ul>
     </div>
+    <% } %>
 </div>
 <% } %>
 <%- include footer.ejs %>

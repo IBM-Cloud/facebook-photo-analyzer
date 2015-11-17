@@ -1,8 +1,5 @@
 ---
 declared-services:
-  visual-recognition-photo-analyzer:
-    label: visual_recognition
-    plan: free
   cloudant-photo-analyzer:
     label: cloudantNoSQLDB
     plan: Shared
