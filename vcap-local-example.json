@@ -30,18 +30,18 @@
             }
         ],
         "cloudantNoSQLDB": [
-      {
-         "name": "cloudant-photo-analyzer",
-         "label": "cloudantNoSQLDB",
-         "plan": "Shared",
-         "credentials": {
-            "username": "YOURUSERNAME",
-            "password": "YOURPASSWORD",
-            "host": "YOURHOST",
-            "port": 443,
-            "url": "YOURURL"
-         }
-      }
-   ]
+          {
+             "name": "cloudant-photo-analyzer",
+             "label": "cloudantNoSQLDB",
+             "plan": "Shared",
+             "credentials": {
+                "username": "YOURUSERNAME",
+                "password": "YOURPASSWORD",
+                "host": "YOURHOST",
+                "port": 443,
+                "url": "YOURURL"
+             }
+          }
+       ]
     }
 }
