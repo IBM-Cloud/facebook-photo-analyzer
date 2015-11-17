@@ -1,0 +1,276 @@
+body, html {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.container-fluid, .container-fluid .jumbotron {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.container-fluid .jumbotron {
+  border-radius: 0px;
+}
+
+.full-screen-wrapper {
+  min-height: 100%;
+  position: relative;
+  background-color: #dfe6eb
+}
+
+.jumbotron {
+  margin-bottom: 10px;
+  padding: 10px 0px;
+  background-color: #5aaaf9;
+  color: white;
+  width: 100%;
+}
+
+#nav-header {
+  margin: 0px;
+  padding-left: 15px;
+}
+
+#search-col {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+#logout-link {
+  padding-right: 10px;
+  padding-top: 7px;
+}
+
+#logout-link a {
+  color: white;
+  font-size: 15px;
+}
+
+#logout-link a:hover {
+  text-decoration: none;
+  color: #dfe6eb;
+}
+
+.form-group {
+  margin-bottom: 0px;
+}
+
+.hidden {
+  display: none;
+}
+
+.splash {
+  padding: 80px 0px;
+}
+
+.logo {
+  display: inline-block;
+}
+
+#box {
+  padding: 20px 40px 35px 40px;
+}
+
+.splash-header {
+  font-size: 60px;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  padding-top: 20px;
+}
+
+.splash-sub-header {
+  font-size: 30px;
+}
+
+.btn-primary {
+    background-color: #1d3648;
+    border: none;
+    border-radius: 0;
+}
+
+.personality-btn {
+  background-color: #ecf0f2;
+}
+
+.panel-title {
+  color: #5aaaf9;
+}
+
+.panel-title a:hover {
+  text-decoration: none;
+}
+
+.panel-description{
+  margin: 2px 0px 0px 0px;
+}
+
+.panel-group .panel {
+  margin-bottom: 10px;
+  border-radius: 0px;
+}
+
+.panel-group {
+  margin-bottom: 60px;
+}
+
+.panel-heading {
+  cursor: pointer;
+  background: url(/../images/down_arrow.png) no-repeat;
+  background-position: right 10px center;
+  padding: 10px 40px 10px 15px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    font-size: 15px;
+    width: 100%;
+    height: 40px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    color: #333;
+    text-align: center;
+    clear: both;
+}
+
+#footer a {
+  color: #333;
+}
+
+
+* { 
+    -moz-box-sizing: border-box; 
+    box-sizing: border-box;
+}
+
+#main {
+  margin: 40px auto 10px auto;
+  min-height: 400px;
+  width: 960px;
+}
+
+.frame {
+  float: left;
+  height: 450px;
+    overflow: hidden;
+  position: relative;
+  width: 340px;
+}
+
+.frame a {
+  display: block;
+    height: 100%;
+  width: 100%;
+}
+
+.frame img {
+  display: block;
+  height: auto;
+  position: absolute;
+    width: auto;
+  z-index: 0;
+}
+
+.frame:nth-child(2) img {
+  top: -90%;
+  left: -70%;
+}
+.frame:nth-child(3) img {
+  top: -90%;
+}
+
+.frame a .caption {
+    background-color: rgba(0, 0, 0, 0.8);
+    display: block;
+  overflow: hidden;
+  padding-left: 10px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 410px;
+    transition-property: top;
+  transition-duration: 0.2s;
+  width: 100%;
+  z-index: 10;
+}
+
+.frame a .caption:hover {
+    top: 250px;
+    transition: all 2s;
+}
+
+.frame a .caption h4 {
+  color: #5aaaf9;
+    margin-bottom: 20px;
+}
+
+.frame a .caption p {
+  color: white;
+  display: none;
+  line-height: 150%;
+  transition: all 0.2s;
+  width: 90%;
+}
+
+.frame a:hover .caption p {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+}
+
+.traits li {
+  list-style: none;
+ }
+
+ blockquote {
+    border: none;
+    color: inherit;
+    font-family: Georgia, serif !important;
+    font-size: 18px;
+    font-style: italic;
+    width: 450px;
+    margin: 0.25em 0;
+    padding: 0.25em 40px;
+    line-height: 1.45;
+    position: relative;
+}
+
+blockquote:before {
+    display: block;
+    content: "\201C";
+    font-size: 80px;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    color: #7a7a7a;
+}
+
+blockquote cite {
+    color: #999999;
+    font-size: 14px;
+    display: block;
+    margin-top: 5px;
+}
+
+blockquote cite:before {
+    content: "\2014 \2009";
+}
+
+blockquote:hover{
+    color: inherit !important;
+    border: inherit !important;
+}
