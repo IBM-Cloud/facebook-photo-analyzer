@@ -98,6 +98,7 @@ if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET
             photo.graph = graph;
             photo.userId = profile.id;
           });
+          console.log("analyzing",photos.data.length, "photos");
           async.each(photos.data, analyzePhoto, next);
           //analyzePhoto(photos.data[0], next);
         }
