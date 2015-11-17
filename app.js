@@ -83,7 +83,7 @@ if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET
   passport.use(new FacebookStrategy({
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "http://localhost:6020/auth/facebook/callback",
+      callbackURL: "https://facebook-photo-analyzer.mybluemix.net/auth/facebook/callback",
       scope: ["user_photos", "user_posts"]
     },
     function(accessToken, refreshToken, profile, done) {
