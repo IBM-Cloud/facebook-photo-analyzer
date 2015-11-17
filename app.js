@@ -51,6 +51,7 @@ var visualRecognition = watson.visual_recognition(visualRecognitionCreds);
 
 var alchemy = new AlchemyApi(process.env.ALCHEMY_API_KEY);
 
+//---Set up Cloudant------------------------------------------------------------
 var cloudantCreds = getServiceCreds(appEnv, "cloudant-photo-analyzer"),
   dbName = "photo-analyzer",
   cloudant,
@@ -100,7 +101,6 @@ if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET
           });
           console.log("analyzing",photos.data.length, "photos");
           async.each(photos.data, analyzePhoto, next);
-          //analyzePhoto(photos.data[0], next);
         }
         ], function (error, result) {
           if (error) {
@@ -125,6 +125,7 @@ app.get('/auth/facebook/callback',
   })
 );
 
+//---Start the server, conenct to cloudant--------------------------------------
 app.listen(appEnv.port, function() {
   console.log("server started on port " + appEnv.port);
   var dbCreated = false;
@@ -167,6 +168,7 @@ app.listen(appEnv.port, function() {
   });
 });
 
+//--Analyze a photo from Facebook with Watson and AlchemyAPI--------------------
 function analyzePhoto(photo, callback) {
   var graph = photo.graph,
     file = path.join(os.tmpdir(), photo.id + ".jpg"),
@@ -185,7 +187,6 @@ function analyzePhoto(photo, callback) {
       var stream = request.get(result.images[0].source).pipe(fs.createWriteStream(file));
       stream.on("finish", function() {
         var params = {
-          // From file
           image_file: fs.createReadStream(file)
         };
 
@@ -237,6 +238,7 @@ function analyzePhoto(photo, callback) {
   ], callback);
 }
 
+//---Route handle for the default entry point to the app------------------------
 app.get('/', function (request, response) {
   var setup = false;
   if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET !== undefined && process.env.ALCHEMY_API_KEY !== undefined) {
@@ -259,38 +261,40 @@ app.get('/', function (request, response) {
 
 });
 
+//--Route handle for logging out------------------------------------------------
 app.get('/logout', function (request, response) {
   request.logout();
   response.redirect('/');
 });
 
+//---Seed the db----------------------------------------------------------------
 function seedDB(callback) {
   db = cloudant.use(dbName);
 
   async.waterfall([
-      function (next) {
-          var designDocs = [
-              {
-                  _id: '_design/photos',
-                  views: {
-                      all: {
-                          map: function (doc) { if (doc.type === 'photo') { emit(doc._id, doc); } }
-                      },
-                      user: {
-                          map: function (doc) { if (doc.type === 'photo') { emit(doc.userId, doc); } }
-                      },
-                      photo: {
-                          map: function (doc) { if (doc.type === 'photo') { emit(doc.photoId, doc); } }
-                      }
-                  }
+    function (next) {
+      var designDocs = [
+          {
+            _id: '_design/photos',
+            views: {
+              all: {
+                map: function (doc) { if (doc.type === 'photo') { emit(doc._id, doc); } }
+              },
+              user: {
+                map: function (doc) { if (doc.type === 'photo') { emit(doc.userId, doc); } }
+              },
+              photo: {
+                map: function (doc) { if (doc.type === 'photo') { emit(doc.photoId, doc); } }
               }
-         ];
+            }
+          }
+     ];
 
-          async.each(designDocs, db.insert, next);
-      },
-      function (next) {
-          console.log("Created DB", dbName, "and populated it with initial purchases");
-          next();
-      }
+      async.each(designDocs, db.insert, next);
+    },
+    function (next) {
+      console.log("Created DB", dbName, "and populated it with initial purchases");
+      next();
+    }
   ], callback)
 }
