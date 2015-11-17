@@ -21,4 +21,3 @@ applications:
   services:
   - visual-recognition-photo-analyzer
   - cloudant-photo-analyzer
-  - alchemy-api-photo-analyzer

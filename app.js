@@ -51,8 +51,7 @@ visualRecognitionCreds.version = "v1";
 delete visualRecognitionCreds.url;
 var visualRecognition = watson.visual_recognition(visualRecognitionCreds);
 
-var alchemyCreds = getServiceCreds(appEnv, "alchemy-api-photo-analyzer");
-var alchemy = new AlchemyApi(alchemyCreds.apikey);
+var alchemy = new AlchemyApi(process.env.ALCHEMY_API_KEYS);
 
 //---Routers and View Engine----------------------------------------------------
 app.set('views', __dirname + '/views');
@@ -76,7 +75,7 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-console.log(process.env.FACEBOOK_APP_ID);
+
 if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET !== undefined) {
   passport.use(new FacebookStrategy({
       clientID: process.env.FACEBOOK_APP_ID,
@@ -183,8 +182,13 @@ function analyzePhoto(photo, callback) {
 }
 
 app.get('/', function (request, response) {
+  var setup = false;
+  if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET !== undefined && process.env.ALCHEMY_API_KEY !== undefined) {
+    setup = true;
+  }
   var opts = {
-    user: request.user
+    user: request.user,
+    setup: setup
   }
   response.render('index', opts);
 });
