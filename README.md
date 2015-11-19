@@ -9,7 +9,11 @@ There are two menthods to deploy this app.  With both ways you will need to crea
 1. Goto [https://developer.facebook.com](https://developer.facebook.com)
 2. Sign in and click hover over My Apps at the top, then click new app.
 ![][newAppImage]
-3. Create a new app, it will be of the type web app.
+3. Click Website for the app type
+![][websiteImage]
+4. Click Skip and Create App ID
+![][skipImage]
+
 
 ### Quick and easy
 
@@ -51,3 +55,5 @@ Deployment tracking can be disabled by removing `require("cf-deployment-tracker-
 
 
 [newAppImage]: githubContent/addNewApp.png?raw=true
+[websiteImage]: githubContent/website.png?raw=true
+[skipImage]: githubContent/skip.png?raw=true
