@@ -4,6 +4,9 @@
 
 There are two menthods to deploy this app.  With both ways you will need to create a [Facebook developer app](https://developer.facebook.com) and signup for a [AlchemyAPI account](http://www.alchemyapi.com/api/register.html).
 
+## Architecture Diagram
+![][architectureDiagram]
+
 ### Facebook setup
 
 1. Goto [https://developer.facebook.com](https://developer.facebook.com)
@@ -157,3 +160,4 @@ Deployment tracking can be disabled by removing `require("cf-deployment-tracker-
 [bluemix_signup_url]: https://console.ng.bluemix.net/?cm_mmc=GitHubReadMe-_-BluemixSampleApp-_-Node-_-Watson
 [cloud_foundry_url]: https://github.com/cloudfoundry/cli
 [git_install]: https://git-scm.com/downloads
+[architectureDiagram]: githubContent/architectureDiagram.png?raw=true
