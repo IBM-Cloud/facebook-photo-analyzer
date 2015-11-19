@@ -15,6 +15,7 @@ There are two menthods to deploy this app.  With both ways you will need to crea
 ![][skipImage]
 5. Give your application a name and category.  Click "Create App ID".
 ![][appNameImage]
+6. Leave the page open on Facebook that it brings you to.  It should have an App ID and App Secret displayed at the top.  We will need this info later.
 
 
 ### Quick and easy
@@ -30,15 +31,21 @@ Once the deployment is done, skip to step 1 below.
 ### Developer way
 TBD
 
-1.  In the Bluemix UI click on your application.  At the top of the screen there will be a url for your application, ex. http://facebook-photo-analyzer.mybluemix.net.  Copy this and go back to your Facebook app.  We need to use this url as our application URL.
-2. Copy the Facebook app ID.  Go back to Bluemix and click on Environment variables on the left hand side.
-3. Click on user defined
-4. For the name of the enviroment variable enter `FACEBOOK_APP_ID`.  For the value paste your Facebook app ID.
-5.  Go back to Facebook, copy the app secret.  Go back to Bluemix.  Repeat step 4 expect this time the variable name is `FACEBOOK_APP_SECRET`.  Paste in the value for the Facebook app secret.
-6.  When we signed up for the Alchemy API we should of recieved an API key in our email.  We need to create an environment variable to store this.  Create another environment variable called `ALCHEMY_API_KEY`, paste in api key for Alchemy for the value.
-7. Click save.
-8. Click overview in the top left.
-9. On the right hand side, click restart.
+1.  In the Bluemix UI click on your application.  At the top of the screen there will be a url for your application, ex. `http://facebook-photo-analyzer.mybluemix.net`.  Copy this and go back to your Facebook app tab in your browser.  We need to use this url as our application URL.
+2. Click "Settings" on the left hand side and then click "Add Platform"
+![][settingsImage]
+3. Click WWW
+![][websitePlatformImage]
+4. Type in the URL for your application, ex. `http://myapp.mybluemix.net`, click "Save Changes".
+![][siteUrlImage]
+5. Copy the Facebook app ID.  Go back to Bluemix and click on Environment variables on the left hand side.
+6. Click on user defined
+7. For the name of the enviroment variable enter `FACEBOOK_APP_ID`.  For the value paste your Facebook app ID.
+8.  Go back to Facebook, copy the app secret.  Go back to Bluemix.  Repeat step 4 expect this time the variable name is `FACEBOOK_APP_SECRET`.  Paste in the value for the Facebook app secret.
+9.  When we signed up for the Alchemy API we should of recieved an API key in our email.  We need to create an environment variable to store this.  Create another environment variable called `ALCHEMY_API_KEY`, paste in api key for Alchemy for the value.
+10. Click save.
+11. Click overview in the top left.
+12. On the right hand side, click restart.
 
 ### Privacy Notice
 
@@ -60,3 +67,6 @@ Deployment tracking can be disabled by removing `require("cf-deployment-tracker-
 [websiteImage]: githubContent/website.png?raw=true
 [skipImage]: githubContent/skip.png?raw=true
 [appNameImage]: githubContent/appName.png?raw=true
+[settingsImage]: githubContent/settings.png?raw=true
+[websitePlatformImage]: githubContent/websitePlatform.png?raw=true
+[siteUrlImage]: githubContent/websitePlatform.png?raw=true
