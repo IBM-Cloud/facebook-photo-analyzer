@@ -1,4 +1,4 @@
-# facebook-photo-analyzer
+# Facebook Photo Analyzer
 
 ## Deploy
 
