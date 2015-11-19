@@ -8,7 +8,7 @@ There are two menthods to deploy this app.  With both ways you will need to crea
 
 1. Goto [https://developer.facebook.com](https://developer.facebook.com)
 2. Sign in and click hover over My Apps at the top, then click new app.
-[newApp][newAppImage]
+![][newAppImage]
 3. Create a new app, it will be of the type web app.
 
 ### Quick and easy
@@ -50,4 +50,4 @@ This data is collected from the `VCAP_APPLICATION` environment variable in IBM B
 Deployment tracking can be disabled by removing `require("cf-deployment-tracker-client").track();` from the beginning of the `app.js` main server file.
 
 
-[newAppImage]: /githubContent/addNewApp.png
+[newAppImage]: githubContent/addNewApp.png?raw=true
