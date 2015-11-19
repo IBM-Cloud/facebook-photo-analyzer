@@ -26,7 +26,7 @@ Click the following button
 
 **You might get a screen asking you to create an alias on DevOps services.  If you do just use the part before the @ sign in your email address.  Example if your email is johnsmith@gmail.com your username would be johnsmith***
 
-Once the deployment is done, skip to step 1 below.
+Once the deployment is done, skip to step 10 below.
 
 ### Developer way
 1. Create a Bluemix Account
