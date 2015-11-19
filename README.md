@@ -29,30 +29,99 @@ Click the following button
 Once the deployment is done, skip to step 1 below.
 
 ### Developer way
-TBD
+1. Create a Bluemix Account
 
-1.  In the Bluemix UI click on your application.  At the top of the screen there will be a url for your application, ex. `http://facebook-photo-analyzer.mybluemix.net`.  Copy this and go back to your Facebook app tab in your browser.  We need to use this url as our application URL.
-2. Click "Settings" on the left hand side and then click "Add Platform"
+    [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
+
+2. Download and install the [Cloud-foundry CLI][cloud_foundry_url] tool
+
+3. Download and [install Git][git_install]
+
+3. Clone the app to your local environment from your terminal using the following command
+
+  ```
+  git clone https://github.com/IBM-Bluemix/facebook-photo-analyzer.git
+  ```
+4. cd into this newly created directory
+
+  ```
+  cd facebook-photo-analyzer
+  ```
+
+5. Edit the `manifest.yml` file and change the `<application-name>` and `<application-host>` to something unique.
+
+    ```
+    applications:
+    - name: facebook-photo-analyzer
+      framework: node
+      runtime: node12
+      memory: 256M
+      instances: 1
+      host: facebook-photo-analyzer
+      path: .
+      command: node app.js
+    ```
+
+  The host you use will determinate your application url initially, e.g. `<application-host>.mybluemix.net`.
+
+6. Connect to Bluemix in the command line tool and follow the prompts to log in.
+
+    ```
+    $ cf api https://api.ng.bluemix.net
+    $ cf login
+    ```
+
+    If you want to deploy this app to the EU region in London use the following
+    ```
+    $ cf api https://api.eu-gb.bluemix.net
+    $ cf login
+    ```
+
+    If you want to deploy this app to the Asia/Pacific region in Australia use the following
+    ```
+    $ cf api https://api.au-syd.bluemix.net
+    $ cf login
+    ```
+7. Create the Visual Recognition service in Bluemix.
+
+  ```
+  $ cf create-service visual_recognition free visual-recognition-photo-analyzer
+  ```
+
+8. Create the Cloudant service in Bluemix.
+
+  ```
+  $ cf create-service cloudantNoSQLDB Shared cloudant-photo-analyzer
+  ```
+
+9. Push it to Bluemix. We need to perform additional steps once it is deployed, so we will add the option --no-start argument
+
+  ```
+  $ cf push --no-start
+  ```
+
+10.  In the Bluemix UI click on your application.  At the top of the screen there will be a url for your application, ex. `http://facebook-photo-analyzer.mybluemix.net`.  Copy this and go back to your Facebook app tab in your browser.  We need to use this url as our application URL.
+11. Click "Settings" on the left hand side and then click "Add Platform"
 ![][settingsImage]
-3. Click WWW
+12. Click WWW
 ![][websitePlatformImage]
-4. Type in the URL for your application, ex. `http://myapp.mybluemix.net`, click "Save Changes".
+13. Type in the URL for your application, ex. `http://myapp.mybluemix.net`, click "Save Changes".
 ![][siteUrlImage]
-5. On the left click Dashboard, copy the Facebook app ID.
-6. Go back to Bluemix and click on Environment variables on the left hand side.
+14. On the left click Dashboard, copy the Facebook app ID.
+15. Go back to Bluemix and click on Environment variables on the left hand side.
 ![][envarsImage]
-6. Click on user defined
+16. Click on user defined
 ![][userDefinedImage]
-7. For the name of the enviroment variable enter `FACEBOOK_APP_ID`.  For the value paste your Facebook app ID.
+17. For the name of the enviroment variable enter `FACEBOOK_APP_ID`.  For the value paste your Facebook app ID.
 ![][appIDImage]
-8.  Go back to Facebook, copy the app secret.  Go back to Bluemix.  Repeat step 4 expect this time the variable name is `FACEBOOK_APP_SECRET`.  Paste in the value for the Facebook app secret.
+18.  Go back to Facebook, copy the app secret.  Go back to Bluemix.  Repeat step 4 expect this time the variable name is `FACEBOOK_APP_SECRET`.  Paste in the value for the Facebook app secret.
 ![][appSecretImage]
-9.  When we signed up for the Alchemy API we should of recieved an API key in our email.  We need to create an environment variable to store this.  Create another environment variable called `ALCHEMY_API_KEY`, paste in api key for Alchemy for the value.
+19.  When we signed up for the Alchemy API we should of recieved an API key in our email.  We need to create an environment variable to store this.  Create another environment variable called `ALCHEMY_API_KEY`, paste in api key for Alchemy for the value.
 ![][alchemyImage]
-10. Click save.
-11. Click overview in the top left.
+20. Click save.
+21. Click overview in the top left.
 ![][overviewImage]
-12. On the right hand side, click restart.
+22. On the right hand side, click restart or start.
 ![][restartImage]
 
 ### Privacy Notice
@@ -85,3 +154,5 @@ Deployment tracking can be disabled by removing `require("cf-deployment-tracker-
 [alchemyImage]: githubContent/alchemy.png?raw=true
 [overviewImage]: githubContent/overview.png?raw=true
 [restartImage]: githubContent/restart.png?raw=true
+[bluemix_signup_url]: https://console.ng.bluemix.net/?cm_mmc=GitHubReadMe-_-BluemixSampleApp-_-Node-_-Watson
+[cloud_foundry_url]: https://github.com/cloudfoundry/cli
