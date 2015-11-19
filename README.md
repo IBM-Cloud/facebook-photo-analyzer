@@ -156,3 +156,4 @@ Deployment tracking can be disabled by removing `require("cf-deployment-tracker-
 [restartImage]: githubContent/restart.png?raw=true
 [bluemix_signup_url]: https://console.ng.bluemix.net/?cm_mmc=GitHubReadMe-_-BluemixSampleApp-_-Node-_-Watson
 [cloud_foundry_url]: https://github.com/cloudfoundry/cli
+[git_install]: https://git-scm.com/downloads
