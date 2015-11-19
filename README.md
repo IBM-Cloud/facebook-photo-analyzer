@@ -77,7 +77,7 @@ Deployment tracking can be disabled by removing `require("cf-deployment-tracker-
 [appNameImage]: githubContent/appName.png?raw=true
 [settingsImage]: githubContent/settings.png?raw=true
 [websitePlatformImage]: githubContent/websitePlatform.png?raw=true
-[siteUrlImage]: githubContent/websitePlatform.png?raw=true
+[siteUrlImage]: githubContent/siteUrl.png?raw=true
 [envarsImage]: githubContent/envars.png?raw=true
 [userDefinedImage]: githubContent/userDefined.png?raw=true
 [appIDImage]: githubContent/appID.png?raw=true
