@@ -13,6 +13,8 @@ There are two menthods to deploy this app.  With both ways you will need to crea
 ![][websiteImage]
 4. Click Skip and Create App ID
 ![][skipImage]
+5. Give your application a name and category.  Click "Create App ID".
+![][appNameImage]
 
 
 ### Quick and easy
@@ -57,3 +59,4 @@ Deployment tracking can be disabled by removing `require("cf-deployment-tracker-
 [newAppImage]: githubContent/addNewApp.png?raw=true
 [websiteImage]: githubContent/website.png?raw=true
 [skipImage]: githubContent/skip.png?raw=true
+[appNameImage]: githubContent/appName.pmg?raw=true
