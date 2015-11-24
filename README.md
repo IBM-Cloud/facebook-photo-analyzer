@@ -25,7 +25,7 @@ There are two menthods to deploy this app.  With both ways you will need to crea
 
 Click the following button
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
+[![Deploy to Bluemix](https://deployment-tracker.mybluemix.net/stats/98666763715aa857bce80728b1c4b606/button.svg)](https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/facebook-photo-analyzer.git)
 
 **You might get a screen asking you to create an alias on DevOps services.  If you do just use the part before the @ sign in your email address.  Example if your email is johnsmith@gmail.com your username would be johnsmith***
 
