@@ -21,3 +21,4 @@ applications:
   services:
   - visual-recognition-photo-analyzer
   - cloudant-photo-analyzer
+  - visual-recognition-photo-analyzer
