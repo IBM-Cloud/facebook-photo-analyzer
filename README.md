@@ -1,11 +1,11 @@
 # Facebook Photo Analyzer
 
+## Architecture Diagram
+![][architectureDiagram]
+
 ## Deploy
 
 There are two menthods to deploy this app.  With both ways you will need to create a [Facebook developer app](https://developer.facebook.com) and signup for a [AlchemyAPI account](http://www.alchemyapi.com/api/register.html).
-
-## Architecture Diagram
-![][architectureDiagram]
 
 ### Facebook setup
 
