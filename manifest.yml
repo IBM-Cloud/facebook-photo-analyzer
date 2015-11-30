@@ -3,9 +3,6 @@ declared-services:
   cloudant-photo-analyzer:
     label: cloudantNoSQLDB
     plan: Shared
-  alchemy-api-photo-analyzer:
-    label: alchemy_api
-    plan: free
   visual-recognition-photo-analyzer:
     label: visual_recognition
     plan: free
@@ -21,4 +18,3 @@ applications:
   services:
   - visual-recognition-photo-analyzer
   - cloudant-photo-analyzer
-  - alchemy-api-photo-analyzer
