@@ -49,8 +49,7 @@ visualRecognitionCreds.version = "v1";
 delete visualRecognitionCreds.url;
 var visualRecognition = watson.visual_recognition(visualRecognitionCreds);
 
-var alchemyCreds = getServiceCreds(appEnv, "alchemy-api-photo-analyzer");
-var alchemy = new AlchemyApi(alchemyCreds.apikey);
+var alchemy = new AlchemyApi(process.env.ALCHEMY_API_KEY);
 
 //---Set up Cloudant------------------------------------------------------------
 var cloudantCreds = getServiceCreds(appEnv, "cloudant-photo-analyzer"),
@@ -133,7 +132,7 @@ app.listen(appEnv.port, function() {
   Cloudant({account:cloudantCreds.username, password:cloudantCreds.password}, function(er, dbInstance) {
       cloudant = dbInstance;
       if (er) {
-          return console.log('Error connecting to Cloudant account %s: %s', cloudantCreds.username, er.message);
+          return console.log('Error connecting to Cloudant account %s: %s', me, er.message);
       }
 
       console.log('Connected to cloudant');
@@ -242,7 +241,7 @@ function analyzePhoto(photo, callback) {
 //---Route handle for the default entry point to the app------------------------
 app.get('/', function (request, response) {
   var setup = false;
-  if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET !== undefined) {
+  if (process.env.FACEBOOK_APP_ID !== undefined && process.env.FACEBOOK_APP_SECRET !== undefined && process.env.ALCHEMY_API_KEY !== undefined) {
     setup = true;
   }
   var opts = {
