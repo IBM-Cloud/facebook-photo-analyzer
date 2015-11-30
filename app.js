@@ -133,7 +133,7 @@ app.listen(appEnv.port, function() {
   Cloudant({account:cloudantCreds.username, password:cloudantCreds.password}, function(er, dbInstance) {
       cloudant = dbInstance;
       if (er) {
-          return console.log('Error connecting to Cloudant account %s: %s', me, er.message);
+          return console.log('Error connecting to Cloudant account %s: %s', cloudantCreds.username, er.message);
       }
 
       console.log('Connected to cloudant');
